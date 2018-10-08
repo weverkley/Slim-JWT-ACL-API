@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 	}
 	
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])){
-		header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Siit-token');
+		header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, App-token');
 	}
 
 	exit;
