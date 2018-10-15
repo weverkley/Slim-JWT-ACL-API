@@ -9,7 +9,7 @@ return [
         'determineRouteBeforeAppMiddleware' => true,
 
         'renderer' => [
-            'template_path' => __DIR__ . '/../Siit/View/',
+            'template_path' => __DIR__ . '/../App/View/',
         ],
 
         'logger' => [
