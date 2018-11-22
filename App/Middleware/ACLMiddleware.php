@@ -37,8 +37,8 @@ class ACLMiddleware
             if (in_array($route, $routes)) {
 				return $next($request, $response);
 			// You can set an admin permission so it can pass anything.
-            // } else if (in_array('ADMIN', $routes)) {
-            //     return $next($request, $response);
+            } else if (in_array('ADMIN', $routes)) {
+                return $next($request, $response);
             } else {
                 $return['error'] = true;
                 $return['message'] = 'This user doesnt have permission to access this function.';
