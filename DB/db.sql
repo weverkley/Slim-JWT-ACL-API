@@ -7,25 +7,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE INDEX `user_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `user_permission` (
-  `id` INT(5) NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `permission_id` INT(5) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_user_permission_user1_idx` (`user_id` ASC),
-  INDEX `fk_user_permission_permission1_idx` (`permission_id` ASC),
-  CONSTRAINT `fk_user_permission_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_permission_permission1`
-    FOREIGN KEY (`permission_id`)
-    REFERENCES `permission` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` INT(5) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(40) NOT NULL,
@@ -34,5 +15,26 @@ CREATE TABLE IF NOT EXISTS `permission` (
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `user_permission` (
+  `id` INT(5) NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `permission_id` INT(5) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`user_id` ASC),
+  INDEX (`permission_id` ASC),
+  CONSTRAINT `fk_user_permission_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_permission_permission`
+    FOREIGN KEY (`permission_id`)
+    REFERENCES `permission` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-INSERT INTO permission (name) VALUES ('users.create');
+
+INSERT INTO permission (name) VALUES ('ADMIN'), ('users.create');
+-- password: asdasd
+INSERT INTO user (name, email, password) VALUES ('Admin', 'admin@admin.com', 'a8f5f167f44f4964e6c998dee827110c');
