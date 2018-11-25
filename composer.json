@@ -11,12 +11,12 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
-        "slim/slim": "^3.1",
-        "slim/php-view": "^2.0",
+        "php": ">=5.6.0",
         "monolog/monolog": "^1.17",
-        "tuupola/slim-jwt-auth": "^3.0",
         "vlucas/phpdotenv": "^2.4",
+		"tuupola/slim-jwt-auth": "3.0.0-rc.4",
+		"slim/slim": "^3.11",
+		"slim/php-view": "^2.2",
 		"slim/http-cache": "^0.4.0"
     },
     "autoload": {

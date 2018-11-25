@@ -1,7 +1,4 @@
 <?php
-define('PUBLIC_FOLDER', realpath(dirname(__FILE__)));
-define('ROOT_DIR', explode('/public', PUBLIC_FOLDER)[0]);
-define('DS', DIRECTORY_SEPARATOR);
 
 // Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -28,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 // Composer autoload dependencies
-$autoload = ROOT_DIR . DS . 'vendor' . DS . 'autoload.php';
+$autoload = '../vendor/autoload.php';
 if (file_exists($autoload)) {
     require $autoload;
 } else {
@@ -38,7 +35,7 @@ if (file_exists($autoload)) {
 }
 
 // Load .env file
-$dotenv = new Dotenv\Dotenv(ROOT_DIR);
+$dotenv = new Dotenv\Dotenv('../');
 $dotenv->load();
 
 if ((bool) getenv('API_DEBUG')) {
@@ -59,23 +56,23 @@ if (PHP_SAPI == 'cli-server') {
 session_start();
 
 // Instantiate the app
-$settings = require ROOT_DIR . DS . 'src' . DS . 'settings.php';
+$settings = require '../src/settings.php';
 $app = new \Slim\App($settings);
 
 // Set up app
-require ROOT_DIR . DS . 'src' . DS . 'dependency.php';
+require '../src/dependency.php';
 
 // Register middleware
-require ROOT_DIR . DS . 'src' . DS . 'middleware.php';
+require '../src/middleware.php';
 
 // Set up errors
-require ROOT_DIR . DS . 'src' . DS . 'errors.php';
+require '../src/errors.php';
 
 // Set up DI
-require ROOT_DIR . DS . 'App' . DS . 'DI.php';
+require '../App/DI.php';
 
 // Register routes
-require ROOT_DIR . DS . 'App' . DS . 'routes.php';
+require '../App/routes.php';
 
 // Run app
 $app->run();
