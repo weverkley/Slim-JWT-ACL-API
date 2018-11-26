@@ -48,7 +48,7 @@ class AuthController
             }
         }
 
-        $jwt = JwtGenerator::getToken($user, $permissions);
+        $jwt = JwtGenerator::getToken($user['data'], $permissions);
         $this->return['data'] = $jwt;
         $this->return['message'] = 'Authentication ok.';
 
