@@ -21,19 +21,17 @@ $container['logger'] = function (Container $c) {
 
 // database connection
 $container['pdo'] = function (Container $c) {
-	try {
-		$db = $c['settings']['db'];
-		$pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-		$pdo->exec("SET NAMES utf8; SET time_zone = 'America/Sao_Paulo'");
-		return $pdo;
-	} catch (Exception $e) {
-		return $c['response']
-            ->withStatus(500)
-            ->withHeader('Content-Type', 'Application/json')
-            ->withJson(['error' => true, 'message' => $e->getMessage()], 500);
-	}
+    try {
+        $db = $c['settings']['db'];
+        $pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'], $db['user'], $db['pass']);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $pdo->exec("SET NAMES utf8; SET time_zone = 'America/Sao_Paulo'");
+        return $pdo;
+    } catch (PDOException $e) {
+        http_response_code(500);
+        exit(json_encode(['error' => true, 'message' => $e->getMessage()]));
+    }
 };
 
 // Activating routes in a subfolder
