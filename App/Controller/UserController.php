@@ -27,9 +27,13 @@ class UserController {
 		$user->setPassword(md5($post['senha']));
 
 		$data = $this->userService->insert($user);
-		$this->return['error'] = $data['error'];
-		$this->return['message'] = $data['message'];
-		$this->return['data'] = $data['data'];
+
+		if (!$data) {
+			$this->return['error'] = true;
+			$this->return['message'] = 'User was not created!';
+		} else {			
+			$this->return['message'] = 'User created!';
+		}
         
         return $response->withJson($this->return);
 	}

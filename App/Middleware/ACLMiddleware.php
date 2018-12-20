@@ -42,8 +42,7 @@ class ACLMiddleware
             } else {
                 $return['error'] = true;
                 $return['message'] = 'This user doesnt have permission to access this function.';
-                $return['permission'] = $route;
-                $return['permission'] = $routes;
+                $return['route'] = $route;
                 return $response
                     ->withHeader('Content-Type', 'Application/json')
                     ->withJson($return, 403);

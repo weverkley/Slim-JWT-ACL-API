@@ -39,13 +39,13 @@ class UserService
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-			$stmt->execute();
-			
-			$user->setID($this->db->lastInsertId());
+            $stmt->execute();
 
-            return ['error' => false, 'message' => 'User Created.', 'data' => $user->getObject()];
+            $user->setID($this->db->lastInsertId());
+
+            return $user->getObject();
         } catch (PDOException $e) {
-            return ['error' => true, 'message' => $e->getMessage(), 'data' => ''];
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -56,9 +56,9 @@ class UserService
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
 
-            return ['error' => false, 'message' => '', 'data' => $stmt->fetch(PDO::FETCH_ASSOC)];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            return ['error' => true, 'message' => $e->getMessage(), 'data' => ''];
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -78,9 +78,9 @@ class UserService
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            return ['error' => false, 'message' => '', 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)];
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            return ['error' => true, 'message' => $e->getMessage(), 'data' => ''];
+            throw new Exception($e->getMessage());
         }
     }
 

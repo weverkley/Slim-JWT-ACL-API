@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Helper\JwtGenerator;
-use App\Model\User;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -24,31 +23,33 @@ class AuthController
         $post = $request->getParsedBody();
 
         $user = $this->userService->getByEmail($post['email']);
-        if ($user['error'] == true) {
-            $this->return['error'] = $user['error'];
-            $this->return['message'] = $user['message'];
-            return $response->withJson($this->return);
-        } else if (!$user['data']) {
+
+        if (!$user) {
             $this->return['error'] = true;
             $this->return['message'] = 'This email isnt registered.';
             return $response->withJson($this->return);
         }
 
-        if (md5($post['password']) != $user['data']['password']) {
+        if (md5($post['password']) != $user['password']) {
             $this->return['error'] = true;
             $this->return['message'] = 'Password doesnt match.';
             return $response->withJson($this->return);
         }
 
-        $userPerm = $this->userService->getPermissions($user['data']['id']);
+        $userPerm = $this->userService->getPermissions($user['id']);
         $permissions = [];
-        foreach ($userPerm['data'] as $k => $v) {
-            if (!in_array($v, $permissions)) {
-                $permissions[] = $v['permission'];
+
+        if (!empty($userPerm)) {
+            foreach ($userPerm as $k => $v) {
+                foreach ($permissions as $key => $value) {
+                    if ($value != $v['permission']) {
+                        $permissions[] = $v['permission'];
+                    }
+                }
             }
         }
 
-        $jwt = JwtGenerator::getToken($user['data'], $permissions);
+        $jwt = JwtGenerator::getToken($user, $permissions);
         $this->return['data'] = $jwt;
         $this->return['message'] = 'Authentication ok.';
 

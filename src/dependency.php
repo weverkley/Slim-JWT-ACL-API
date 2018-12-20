@@ -29,8 +29,7 @@ $container['pdo'] = function (Container $c) {
         $pdo->exec("SET NAMES utf8; SET time_zone = 'America/Sao_Paulo'");
         return $pdo;
     } catch (PDOException $e) {
-        http_response_code(500);
-        exit(json_encode(['error' => true, 'message' => $e->getMessage()]));
+		throw new Exception($e->getMessage());
     }
 };
 
