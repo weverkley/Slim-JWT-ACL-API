@@ -22,17 +22,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Clone the repo to a folder where you wante to serve the project
-
-After cloning run the following command to instal the project dependencies:
-
+Clone the repo to a folder where you want to serve the project
+After cloning run the following command to install the project dependencies:
+```
 composer install
-
+```
 After that you just need to configure .env-template and rename it to .env
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
