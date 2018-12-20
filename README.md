@@ -3,11 +3,11 @@
 This repository contains an starter API made with slim framework 3 and uses JWT as a middleware, feel free to clone and use it.
 
 ## Features
-* [OOP] (https://en.wikipedia.org/wiki/Object-oriented_programming)
-* [ACL] (https://en.wikipedia.org/wiki/Access_control_list)
-* [MVC] (https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
-* [JWT] (https://en.wikipedia.org/wiki/JSON_Web_Token)
-* [API REST] (https://pt.wikipedia.org/wiki/REST)
+* [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming)
+* [ACL](https://en.wikipedia.org/wiki/Access_control_list)
+* [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
+* [JWT](https://en.wikipedia.org/wiki/JSON_Web_Token)
+* [API REST](https://pt.wikipedia.org/wiki/REST)
 
 ## Getting Started
 
