@@ -16,7 +16,16 @@ class UserController {
     public function __construct($userService) {
 		$this->userService = $userService;
 		$this->return = ['error' => false, 'message' => '', 'data' => []];
-    }
+	}
+	
+	public function list(Request $request, Response $response, $args) {
+
+		$data = $this->userService->getAll();
+
+		$this->return['data'] = $data;
+        
+        return $response->withJson($this->return);
+	}
 	
 	public function create(Request $request, Response $response, $args) {
 		$post = $request->getParsedBody();

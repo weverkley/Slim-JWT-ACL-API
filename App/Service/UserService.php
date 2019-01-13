@@ -48,6 +48,18 @@ class UserService
         } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
+	}
+	
+	public function getAll()
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM user ");
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getByEmail($email)

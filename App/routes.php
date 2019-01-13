@@ -15,6 +15,7 @@ $app->group('/v1', function () {
 
     // Users
     $this->group('/users', function () {
+        $this->get('', 'UserController:list')->setName('users.list');
         $this->post('', 'UserController:create')->setName('users.create');
     })->add('ACLMiddleware');
 
