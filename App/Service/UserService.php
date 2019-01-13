@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\User;
+use Exception;
 use PDO;
 use PDOException;
 
@@ -67,7 +68,7 @@ class UserService
         try {
             $stmt = $this->db->prepare(
                 "SELECT
-				up.id, p.name AS permission
+				p.name AS permission
 			FROM
 				user_permission AS up
 					INNER JOIN

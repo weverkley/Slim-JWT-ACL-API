@@ -33,4 +33,4 @@ class JwtGenerator {
             ],
         ], (string)getenv('JWT_SECRET'));
     }
-}   
+}  

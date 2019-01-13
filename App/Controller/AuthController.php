@@ -20,7 +20,19 @@ class AuthController
 
     public function authenticate(Request $request, Response $response, $args)
     {
-        $post = $request->getParsedBody();
+		$post = $request->getParsedBody();
+		
+		if (empty($post['email'])) {
+			$this->return['error'] = true;
+			$this->return['message'] = 'Email cannot be empty.';
+            return $response->withJson($this->return);
+		}
+
+		if (empty($post['password'])) {
+			$this->return['error'] = true;
+			$this->return['message'] = 'Password cannot be empty.';
+            return $response->withJson($this->return);
+		}
 
         $user = $this->userService->getByEmail($post['email']);
 
@@ -37,17 +49,14 @@ class AuthController
         }
 
         $userPerm = $this->userService->getPermissions($user['id']);
-        $permissions = [];
-
+		$permissions = [];
+		
         if (!empty($userPerm)) {
-            foreach ($userPerm as $k => $v) {
-                foreach ($permissions as $key => $value) {
-                    if ($value != $v['permission']) {
-                        $permissions[] = $v['permission'];
-                    }
-                }
+			foreach ($userPerm as $k => $v) {
+				if (!in_array($v, $permissions))
+					$permissions[] = $v['permission'];
             }
-        }
+		}
 
         $jwt = JwtGenerator::getToken($user, $permissions);
         $this->return['data'] = $jwt;
