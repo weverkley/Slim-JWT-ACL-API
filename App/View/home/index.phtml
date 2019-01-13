@@ -30,8 +30,10 @@
 
         <?php if (isset($name)) : ?>
             <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>App/View/home/index.phtml</p>
-        <?php endif; ?>
+		<?php 
+			else:
+				echo __FILE__;
+			endif;
+		?>
     </body>
 </html>

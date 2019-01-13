@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 * [Apache2](http://php.net/) - Web Server
-* [PHP>=7](http://php.net/) - Main language
+* [PHP>=7.1](http://php.net/) - Main language
 * [Composer](https://getcomposer.org/) - Package manager
 
 
@@ -34,7 +34,7 @@ After that you just need to configure .env-template and rename it to .env
 * [PHP](http://php.net/) - Main language
 * [Composer](https://getcomposer.org/) - Package manager
 * [Slim Framework](https://www.slimframework.com/) - The framework used
-* [MySQL 5.6](https://www.mysql.com/) - Database used to store data
+* [MySQL 5.7](https://www.mysql.com/) - Database used to store data
 
 
 ## Authors
