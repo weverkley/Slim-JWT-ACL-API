@@ -5,27 +5,27 @@ use \Slim\HttpCache\Cache;
 
 // jwt validation
 $app->add(new JwtAuthentication([
-	'header' => 'App-token',
-	'cookie' => 'App-token',
-    'regexp' => '/(.*)/',
+	// Uncomment these lines if you want to use a custom header
+	// Default: Authorization Bearer
+	// 'header' => 'App-token',
+	// 'cookie' => 'App-token',
+    // 'regexp' => '/(.*)/',
     'path' => ['/v1'],
     'ignore' => ['/v1/auth/user'],
     'logger' => $container['logger'],
 	'attribute' => 'jwt',
 	'secure' => false,
     'realm' => 'Protected',
-    'algorithm' => [ 'HS256' ],
+	'algorithm' => [ 'HS256' ],
 	'secret' => (string)getenv('JWT_SECRET'),
+	// 'before' => function ($request, $arguments) {
+    //     return $request->withAttribute('test', 'test');
+    // },
 	'after' => function ($response, $arguments) {
 		$container['jwt'] = $arguments['decoded'];
     },
 	'error' => function ($response, $arguments) {
-        $data['error'] = true;
-		$data['message'] = 'JWT access denied. '.$arguments['message'];
-		$data['arguments'] = $arguments;
-		return $response
-            ->withHeader('Content-Type', 'Application/json')
-            ->withJson($data, 401);
+        throw new Exception($arguments['message'], 401);
     }
 ]));
 
