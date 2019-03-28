@@ -2,26 +2,21 @@
 
 // Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN'])) {
+    // should do a check here to match $_SERVER['HTTP_ORIGIN'] to a
+    // whitelist of safe domains
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
-    // header('Access-Control-Max-Age: 86400');    // cache for 1 day
+    header('Access-Control-Max-Age: 86400');    // cache for 1 day
 }
-
-// Angular request options
+// Access-Control headers are received during OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && (
-        $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'POST' ||
-        $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'DELETE' ||
-        $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'PUT')
-    ) {
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS'); // http://stackoverflow.com/a/7605119/578667
-    }
 
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
-        header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, App-token');
-    }
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-    exit;
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+
 }
 
 // Composer autoload dependencies
